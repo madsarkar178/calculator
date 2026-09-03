@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>CyberCalc Pro &bull; NextGen Luxury Edition</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Ambient Luxury Aurora Layer -->
+  <div class="ambient-mesh" id="ambientMesh"></div>
+
+  <!-- Top Navigation Bar -->
+  <header class="top-bar">
+    <div class="brand-pill" id="brandPill">
+      <span class="dot"></span> <span id="brandPillText">PRO ENGINE V5.3</span>
+    </div>
+    <button class="admin-link-btn" id="openAdminModalBtn" type="button">
+      <span>⚙️</span> Admin Studio
+    </button>
+  </header>
+
+  <!-- Main Luxury Calculator Chassis -->
+  <main class="calculator-container" id="calculatorContainer">
+    <section class="calculator-screen">
+      <div class="calc-history" id="calcHistory"></div>
+      <div class="calc-current" id="calcDisplay">0</div>
+    </section>
+    
+    <section class="calculator-keypad" id="keypad">
+      <button class="calc-btn btn-clear span-2" data-action="clear" type="button">C</button>
+      <button class="calc-btn btn-op" data-action="operator" data-op="/" type="button">÷</button>
+      <button class="calc-btn btn-op" data-action="operator" data-op="*" type="button">×</button>
+
+      <button class="calc-btn btn-num" data-action="digit" data-val="7" type="button">7</button>
+      <button class="calc-btn btn-num" data-action="digit" data-val="8" type="button">8</button>
+      <button class="calc-btn btn-num" data-action="digit" data-val="9" type="button">9</button>
+      <button class="calc-btn btn-op" data-action="operator" data-op="-" type="button">−</button>
+
+      <button class="calc-btn btn-num" data-action="digit" data-val="4" type="button">4</button>
+      <button class="calc-btn btn-num" data-action="digit" data-val="5" type="button">5</button>
+      <button class="calc-btn btn-num" data-action="digit" data-val="6" type="button">6</button>
+      <button class="calc-btn btn-op" data-action="operator" data-op="+" type="button">+</button>
+
+      <button class="calc-btn btn-num" data-action="digit" data-val="1" type="button">1</button>
+      <button class="calc-btn btn-num" data-action="digit" data-val="2" type="button">2</button>
+      <button class="calc-btn btn-num" data-action="digit" data-val="3" type="button">3</button>
+      <button class="calc-btn btn-equals" data-action="equals" type="button" style="grid-row: span 2; height: 100%;">=</button>
+
+      <button class="calc-btn btn-num span-2" data-action="digit" data-val="0" type="button">0</button>
+      <button class="calc-btn btn-num" data-action="decimal" type="button">.</button>
+    </section>
+  </main>
+
+  <!-- ==========================================================================
+       ULTRA-PREMIUM 2-STEP PAYWALL POPUP MODAL (NO CLOSE BUTTON)
+       ========================================================================== -->
+  <div class="modal-overlay" id="paywallOverlay">
+    <div class="paywall-modal">
+      <div class="paywall-top-glow"></div>
+      
+      <!-- STEP 1: VALUE PROPOSITION PITCH -->
+      <div class="step-view" id="pwStep1">
+        <div class="paywall-icon-wrap" id="pwModalIcon">👑</div>
+        <div class="paywall-badge" id="pwModalBadge">✦ ELITE ACCESS ✦</div>
+        <h2 class="paywall-title" id="pwModalTitle">🔒 Wrong Answer? Upgrade to Premium!</h2>
+        <p class="paywall-body" id="pwModalBody">You're seeing a calculated result. For the CORRECT answer, upgrade to Calculator Premium.</p>
+        
+        <ul class="paywall-features" id="pwModalFeatures">
+          <li>✨ 100% Guaranteed Math Accuracy</li>
+          <li>⚡ Instant Ultra-Fast Neural Processing</li>
+          <li>🚫 Zero Ads &amp; Unlimited Calculations</li>
+        </ul>
+
+        <div class="paywall-price-card">
+          <div class="paywall-price-left">
+            <div class="paywall-price-label" id="pwLicenseLabel">Lifetime License</div>
+            <div class="paywall-orig-price" id="pwOrigPriceDisplay">₹1,999</div>
+          </div>
+          <div class="paywall-price-val" id="pwModalPrice">₹999</div>
+        </div>
+
+        <button class="paywall-cta-btn" id="goToPaymentBtn" type="button">
+          <span id="pwModalBuyText">Unlock Calculator Premium ₹999</span> ➔
+        </button>
+
+        <div>
+          <button class="maybe-later-btn maybe-later-action" type="button">
+            <span>😴</span> <span class="maybe-later-label">Maybe Later</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- STEP 2: HIGH-TECH QR PAYMENT SCREEN -->
+      <div class="step-view hidden" id="pwStep2">
+        <div class="pay-header">
+          <button class="back-step-btn" id="backToPitchBtn" type="button">← Back</button>
+          <div class="pay-step-badge">Instant Verification</div>
+        </div>
+
+        <h2 class="paywall-title" style="font-size: 20px;">Scan &amp; Pay to Unlock</h2>
+        <p class="paywall-body" style="margin-bottom: 14px;" id="pwPaySubText">Use any UPI App on your phone to complete payment.</p>
+
+        <div class="qr-laser-card">
+          <div class="qr-scanner-frame">
+            <div class="laser-line"></div>
+            <img id="pwQrImg" src="assets/qr.png" alt="Payment QR Code">
+          </div>
+          
+          <div class="upi-badge-box">
+            <span class="upi-id-text" id="pwUpiText">sarkar@upi</span>
+            <button class="copy-upi-btn" id="copyUpiBtn" type="button">Copy UPI</button>
+          </div>
+        </div>
+
+        <button class="upi-direct-btn" id="openUpiIntentBtn" type="button">
+          🚀 Open in UPI App (GPay/PhonePe)
+        </button>
+
+        <div class="pay-instructions" id="pwPayInstructions">
+          Pay exact amount <strong id="pwPayAmount" style="color: #34d399;">₹999</strong> via GPay, PhonePe, or Paytm.
+        </div>
+
+        <button class="confirm-pay-btn" id="confirmPaymentBtn" type="button">
+          <span id="confirmPayBtnText">✓ I Have Paid (Unlock Now)</span>
+        </button>
+
+        <div>
+          <button class="maybe-later-btn maybe-later-action" type="button">
+            <span>😴</span> <span class="maybe-later-label">Maybe Later</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       SUPER ADMIN CONTROL DECK MODAL (5-TAB STUDIO)
+       ========================================================================== -->
+  <div class="modal-overlay" id="adminOverlay">
+    <div class="admin-modal">
+      <button class="close-modal-btn" id="closeAdminBtn" style="background: #192038; color: #94a3b8;" type="button">✕</button>
+      
+      <!-- Login Section -->
+      <div id="adminLoginSection">
+        <div class="admin-header">
+          <h3>🔐 Admin Login</h3>
+        </div>
+        <form id="adminLoginForm">
+          <div class="form-group">
+            <label for="adminUsername">Username</label>
+            <input type="text" id="adminUsername" class="form-control" autocomplete="off" placeholder="sarkar">
+          </div>
+          <div class="form-group">
+            <label for="adminPassword">Password</label>
+            <input type="password" id="adminPassword" class="form-control" placeholder="••••">
+          </div>
+          <div class="admin-error" id="adminLoginError">Invalid ID or Password!</div>
+          <button type="submit" class="admin-btn btn-primary-admin" style="margin-top: 10px;">Unlock Studio Deck</button>
+        </form>
+      </div>
+
+      <!-- Dashboard View (Tabbed) -->
+      <div id="adminDashboardSection" style="display: none;">
+        <div class="admin-header">
+          <h3>⚡ Master Customizer Studio</h3>
+        </div>
+
+        <!-- Tabs Navigation -->
+        <div class="admin-tabs-nav">
+          <button class="tab-btn active" data-tab="tab-paywall" type="button">📝 Paywall</button>
+          <button class="tab-btn" data-tab="tab-payment" type="button">💳 Payment &amp; QR</button>
+          <button class="tab-btn" data-tab="tab-audio" type="button">🎵 Sound &amp; UI</button>
+          <button class="tab-btn" data-tab="tab-engine" type="button">⚙️ Math &amp; Timing</button>
+          <button class="tab-btn" data-tab="tab-security" type="button">🔐 Security</button>
+        </div>
+
+        <!-- TAB 1: PAYWALL & PRICING -->
+        <div class="tab-pane active" id="tab-paywall">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="cfgBadge">Badge Text</label>
+              <input type="text" id="cfgBadge" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="cfgIcon">Emoji Icon</label>
+              <input type="text" id="cfgIcon" class="form-control" placeholder="👑">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="cfgTitle">Popup Title</label>
+            <input type="text" id="cfgTitle" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="cfgBody">Popup Description</label>
+            <textarea id="cfgBody" class="form-control"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="cfgFeatures">Features Checklist (1 per line)</label>
+            <textarea id="cfgFeatures" class="form-control" style="min-height: 75px;"></textarea>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="cfgPrice">Offer Price</label>
+              <input type="text" id="cfgPrice" class="form-control" placeholder="₹999">
+            </div>
+            <div class="form-group">
+              <label for="cfgOrigPrice">Original Strikethrough</label>
+              <input type="text" id="cfgOrigPrice" class="form-control" placeholder="₹1,999">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="cfgLicenseLabel">License Plan Tag</label>
+              <input type="text" id="cfgLicenseLabel" class="form-control" placeholder="Lifetime License">
+            </div>
+            <div class="form-group">
+              <label for="cfgButton">Pitch CTA Button Text</label>
+              <input type="text" id="cfgButton" class="form-control">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="cfgMaybeLaterText">"Maybe Later" Button Text</label>
+            <input type="text" id="cfgMaybeLaterText" class="form-control" placeholder="Maybe Later">
+          </div>
+        </div>
+
+        <!-- TAB 2: PAYMENT & QR -->
+        <div class="tab-pane" id="tab-payment">
+          <div class="form-group">
+            <label>Upload QR Code (Local Photo)</label>
+            <div class="upload-box" id="qrUploadTrigger">
+              <span id="qrUploadStatus">📷 Tap to Select QR Image</span>
+              <input type="file" id="qrFileInput" accept="image/*" style="display: none;">
+              <center><img id="qrPreviewThumb" class="qr-preview-thumb" alt="Preview"></center>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="cfgQrUrl">Or Direct QR Image Path / URL</label>
+            <input type="text" id="cfgQrUrl" class="form-control" placeholder="assets/qr.png">
+          </div>
+          <div class="form-group">
+            <label for="cfgUpi">UPI ID / Handle</label>
+            <input type="text" id="cfgUpi" class="form-control" placeholder="sarkar@upi">
+          </div>
+          <div class="form-group">
+            <label for="cfgPaySuccessMsg">Confirm Payment Alert Message</label>
+            <input type="text" id="cfgPaySuccessMsg" class="form-control" placeholder="🎉 Verification in progress! Calculator Premium will activate automatically.">
+          </div>
+          <div class="form-group">
+            <label for="cfgConfirmBtnText">Confirm Button Text</label>
+            <input type="text" id="cfgConfirmBtnText" class="form-control" placeholder="✓ I Have Paid (Unlock Now)">
+          </div>
+        </div>
+
+        <!-- TAB 3: SOUND & UI -->
+        <div class="tab-pane" id="tab-audio">
+          <div class="form-group">
+            <label>Upload "Maybe Later" Audio Sound (MP3 / WAV / OGG)</label>
+            <div class="upload-box" id="audioUploadTrigger">
+              <span id="audioUploadStatus">🎵 Tap to Select Audio File</span>
+              <input type="file" id="audioFileInput" accept="audio/*" style="display: none;">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="cfgAudioUrl">Or Direct Audio File Path / URL</label>
+            <input type="text" id="cfgAudioUrl" class="form-control" placeholder="assets/sound.mp3">
+          </div>
+          <div style="margin-bottom: 15px;">
+            <button class="admin-btn btn-secondary-admin" id="testAudioBtn" type="button">
+              ▶ Test "Maybe Later" Sound
+            </button>
+          </div>
+
+          <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.1); margin: 16px 0;">
+
+          <div class="form-group">
+            <label for="cfgBrandText">Top Brand Pill Label</label>
+            <input type="text" id="cfgBrandText" class="form-control" placeholder="PRO ENGINE V5.3">
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="cfgThemeColor">Neon Accent Color</label>
+              <select id="cfgThemeColor" class="form-control">
+                <option value="#6366f1">Electric Indigo (#6366f1)</option>
+                <option value="#06b6d4">Cyber Cyan (#06b6d4)</option>
+                <option value="#10b981">Neon Emerald (#10b981)</option>
+                <option value="#f43f5e">Vivid Rose (#f43f5e)</option>
+                <option value="#eab308">Solar Gold (#eab308)</option>
+                <option value="#a855f7">Plasma Purple (#a855f7)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="cfgBtnRadius">Button Corner Radius</label>
+              <select id="cfgBtnRadius" class="form-control">
+                <option value="20px">Modern Rounded (20px)</option>
+                <option value="999px">Full Pill (Capsule)</option>
+                <option value="10px">Subtle Rounded (10px)</option>
+                <option value="0px">Cyber Sharp (0px)</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="cfgAudioSfx">Keypad Click SFX</label>
+              <select id="cfgAudioSfx" class="form-control">
+                <option value="true">🔊 Enabled (Futuristic Click)</option>
+                <option value="false">🔇 Muted / Off</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="cfgFont">Display Font Family</label>
+              <select id="cfgFont" class="form-control">
+                <option value="'JetBrains Mono', monospace">Monospace Modern</option>
+                <option value="-apple-system, BlinkMacSystemFont, sans-serif">Apple / Clean Sans</option>
+                <option value="'Courier New', monospace">Retro Terminal</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 4: MATH ENGINE & TIMING -->
+        <div class="tab-pane" id="tab-engine">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="cfgDelay">Popup Delay (Seconds)</label>
+              <input type="number" id="cfgDelay" class="form-control" min="0" max="10" step="0.5">
+            </div>
+            <div class="form-group">
+              <label for="cfgTriggerFrequency">Trigger Frequency</label>
+              <select id="cfgTriggerFrequency" class="form-control">
+                <option value="1">Every Click on = (100%)</option>
+                <option value="2">Every 2nd Click on =</option>
+                <option value="3">Every 3rd Click on =</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="cfgFixedOverride">Fixed Wrong Answer Override (Optional)</label>
+            <input type="text" id="cfgFixedOverride" class="form-control" placeholder="Leave empty for dynamic wrong engine">
+          </div>
+
+          <div class="form-group">
+            <label>Enabled Wrong Answer Strategies</label>
+            <div class="checkbox-grid">
+              <label class="checkbox-item"><input type="checkbox" id="stratAdd" checked> Add Offset (+1-99)</label>
+              <label class="checkbox-item"><input type="checkbox" id="stratSub" checked> Subtract Offset</label>
+              <label class="checkbox-item"><input type="checkbox" id="stratMult" checked> Multiply (1.1-3.5x)</label>
+              <label class="checkbox-item"><input type="checkbox" id="stratRev" checked> Reverse Digits</label>
+              <label class="checkbox-item"><input type="checkbox" id="stratScramble" checked> Scramble Digits</label>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 5: ADMIN SECURITY -->
+        <div class="tab-pane" id="tab-security">
+          <div class="form-group">
+            <label for="cfgAdminUser">New Admin Username</label>
+            <input type="text" id="cfgAdminUser" class="form-control" placeholder="sarkar">
+          </div>
+          <div class="form-group">
+            <label for="cfgAdminPass">New Admin Password</label>
+            <input type="text" id="cfgAdminPass" class="form-control" placeholder="1234">
+          </div>
+          <p style="font-size: 11px; color: #94a3b8; margin-top: 4px;">Update your admin credentials securely.</p>
+        </div>
+
+        <!-- Save Actions & Export Footer -->
+        <div style="margin-top: 18px;">
+          <button class="admin-btn btn-primary-admin" id="saveAdminConfigBtn" type="button">Save All Studio Configurations</button>
+          <button class="admin-btn btn-secondary-admin" id="exportConfigBtn" type="button">📥 Download Updated config.js</button>
+          <button class="admin-btn btn-secondary-admin" id="previewPopupBtn" type="button">Preview Paywall Popup</button>
+          <button class="admin-btn btn-logout" id="adminLogoutBtn" type="button">Lock / Logout</button>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="config.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
